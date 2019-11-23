@@ -1,0 +1,3 @@
+<h2><%= @booth.name %></h2>
+
+<%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first), refresh: 10 %>

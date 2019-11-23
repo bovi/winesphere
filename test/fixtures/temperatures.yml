@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  temp: 1.5
+  thermometer: one
+
+two:
+  temp: 1.5
+  thermometer: two

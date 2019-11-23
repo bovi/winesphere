@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Temp:</strong>
+  <%= @temperature.temp %>
+</p>
+
+<p>
+  <strong>Thermometer:</strong>
+  <%= @temperature.thermometer_id %>
+</p>
+
+<%= link_to 'Edit', edit_temperature_path(@temperature) %> |
+<%= link_to 'Back', temperatures_path %>

@@ -1,0 +1,7 @@
+---
+applications:
+- name: winesphere
+  memory: 512M
+  instances: 1
+  buildpack: ruby_buildpack_offline
+  command: bundle exec rake cf:on_first_instance db:migrate && bundle exec rake cf:on_first_instance db:seed && bundle exec rails s -p $PORT -e $RAILS_ENV
