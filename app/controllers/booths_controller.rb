@@ -21,10 +21,6 @@ class BoothsController < ApplicationController
   def edit
   end
 
-  def completed_tasks
-    render json: @booth.thermometers.first.temperatures.group_by_day(:created_at).count
-  end
-
   # POST /booths
   # POST /booths.json
   def create
