@@ -4,7 +4,7 @@ lock "~> 3.11.2"
 set :application, "winesphere"
 set :repo_url, "git@github.com:bovi/winesphere.git"
 
-set :deploy_to, "/root/#{fetch :application}"
+set :deploy_to, "/home/deploy/#{fetch :application}"
 
 append :linked_dirs, 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', '.bundle', 'public/system', 'public/uploads'
 
