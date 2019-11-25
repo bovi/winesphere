@@ -1,11 +1,11 @@
 <body style="background-image: url(<%= asset_path 'christmas.jpg' %>);">
     <div style="background-image: url(<%= asset_path 'christmas.jpg' %>);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(<%= asset_path 'christmas.jpg' %>);padding: 15px;padding-left: -5px;">
-            <div class="container"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="<%= asset_path 'siemens_ingenuity_for_life-768x432.png' %>" style="height: 4em;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
+            <div class="container-fluid"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="<%= asset_path 'siemens_ingenuity_for_life-768x432.png' %>" style="height: 100px;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
                     data-target="#navcol-1" style="background-color: #ffffff;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link active" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1</strong></a></li>
+                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1</strong></a></li>
                         <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/2" style="color: rgb(255,255,255);"><strong>Booth #2</strong></a></li>
                     </ul>
                 </div>
@@ -15,7 +15,7 @@
     <div class="highlight-blue" style="color: #ffffff;background-color: rgba(94,45,45,0.86);padding: 9px;">
         <div class="container">
             <div class="intro">
-                <h2 class="text-center" style="font-size: 6em">Glühwein - <%= @booth.name %></h2>
+                <h2 class="text-center" style="font-size: 6em">Glühwein</h2>
             </div>
             <div class="buttons"></div>
         </div>
@@ -31,7 +31,7 @@
                                      %>
 
                     </div>
-                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">TEMP</strong></p>
+                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">XXX°C hot</strong></p>
                 </div>
                 <div class="col-md-6 text-center" style="background-color: rgba(0,0,0,0);">
                     <div style="background-color: rgba(210, 77, 87, 1);">
@@ -41,10 +41,10 @@
                                      %>
 
                     </div>
-                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">FILLLEVEL</strong></p>
+                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">XXXl left</strong></p>
                 </div>
                 <div class="col-md-12 text-center">
-                  <p style="font-size: 6em"><strong style="color: rgb(255,255,255);">Cups</strong></p>
+                  <p style="font-size: 6em"><strong style="color: rgb(255,255,255);">XXX Cups served</strong></p>
                 </div>
             </div>
         </div>
