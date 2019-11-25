@@ -1,7 +1,7 @@
-<body style="background-image: url(/assets/christmas.jpg);">
-    <div style="background-image: url(/assets/christmas.jpg);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(/assets/christmas.jpg);padding: 15px;padding-left: -5px;">
-            <div class="container"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="/assets/siemens_ingenuity_for_life-768x432.png" style="height: 4em;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
+<body style="background-image: url(<%= asset_path 'christmas.jpg' %>);">
+    <div style="background-image: url(<%= asset_path 'christmas.jpg' %>);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(<%= asset_path 'christmas.jpg' %>);padding: 15px;padding-left: -5px;">
+            <div class="container"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="<%= asset_path 'siemens_ingenuity_for_life-768x432.png' %>" style="height: 4em;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
                     data-target="#navcol-1" style="background-color: #ffffff;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
@@ -49,6 +49,6 @@
             </div>
         </div>
     </div>
-    <script src="/assets/jquery.min.js"></script>
-    <script src="/assets/bootstrap.min.js"></script>
+    <script src="<%= asset_path 'jquery.min.js' %>"></script>
+    <script src="<%= asset_path 'bootstrap.min.js' %>"></script>
 </body>

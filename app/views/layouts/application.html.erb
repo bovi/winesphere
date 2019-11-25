@@ -9,10 +9,10 @@
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <link rel="stylesheet" href="/assets/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/Highlight-Blue.css">
-    <link rel="stylesheet" href="/assets/Navigation-Clean.css">
-    <link rel="stylesheet" href="/assets/styles.css">
+    <link rel="stylesheet" href="<%= asset_path 'bootstrap.min.css' %>">
+    <link rel="stylesheet" href="<%= asset_path 'Highlight-Blue.css' %>">
+    <link rel="stylesheet" href="<%= asset_path 'Navigation-Clean.css' %>">
+    <link rel="stylesheet" href="<%= asset_path 'styles.css' %>">
 
 </head>
 <%= yield %>
