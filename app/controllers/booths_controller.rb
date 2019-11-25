@@ -39,8 +39,50 @@ class BoothsController < ApplicationController
   end
   def cups
     # count from when?
+    # get cups per minute
 
-    render json: 2
+    ## cLevel = average filllevel of current minute
+    ## pLevel = average filllevel of previous minute
+    ## is cLevel > pLevel
+    ### refill since last minute (no calculation)
+    ## is pLevel > cLevel
+    ### no refill since last minute (calculate cups per minute)
+    ### consumption = pLevel - cLevel
+    ### cups = consumption / 200
+
+    # Corner Cases:
+    ## * will be refilled several-times per minute
+    ## * single values might be screwed
+
+    @booth = Booth.find(params[:booth_id])
+    if @booth.scales.first.weights
+      h = @booth.scales.first.weights.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day).group_by_minute(:created_at).average(:weight)
+      last_data = nil
+      last_time = nil
+      cups = 0
+      h.each do |k,v|
+        next if v.nil?
+        if last_data
+          if v > last_data
+            # refill
+          else
+            # no refill
+            new_cups = ((last_data - v) / 200.0).round
+
+            # per minute not more than 6 cups
+            num = ((k - last_time) / 60.0).round
+            new_cups = (6*num) if new_cups > (6*num)
+
+            cups = cups + new_cups
+          end
+        end
+        last_data = v
+        last_time = k
+      end
+      render html: cups
+    else
+      render html: 'n/a'
+    end
   end
   def temp
     @booth = Booth.find(params[:booth_id])
