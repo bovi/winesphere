@@ -15,7 +15,7 @@
     <div class="highlight-blue" style="color: #ffffff;background-color: rgba(94,45,45,0.86);padding: 9px;">
         <div class="container">
             <div class="intro">
-                <h2 class="text-center" style="font-size: 6em">Glühwein</h2>
+                <h2 class="text-center" style="font-size: 6em"><strong style="color: rgb(0, 153, 153)">SIEMENS</strong> Glühwein</h2>
             </div>
             <div class="buttons"></div>
         </div>
@@ -31,7 +31,7 @@
                                      %>
 
                     </div>
-                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">XXX°C hot</strong></p>
+                    <p style="font-size: 4em; color: rgb(255,255,255)"><strong id="temperature">XXX</strong>°C hot</p>
                 </div>
                 <div class="col-md-6 text-center" style="background-color: rgba(0,0,0,0);">
                     <div style="background-color: rgba(210, 77, 87, 1);">
@@ -41,14 +41,24 @@
                                      %>
 
                     </div>
-                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">XXXl left</strong></p>
+                    <p style="font-size: 4em;color: rgb(255,255,255)"><strong id="liter">XXX</strong>l left</p>
                 </div>
                 <div class="col-md-12 text-center">
-                  <p style="font-size: 6em"><strong style="color: rgb(255,255,255);">XXX Cups served</strong></p>
+                  <p style="font-size: 6em; color: rgb(255,255,255);"><strong id="cups">XXX</strong> Cups served</p>
                 </div>
             </div>
         </div>
     </div>
     <script src="<%= asset_path 'jquery.min.js' %>"></script>
     <script src="<%= asset_path 'bootstrap.min.js' %>"></script>
+    <script>
+      $(document).ready(function()
+      {
+        setInterval(function() {
+          $("#liter").load('<%= booth_liter_path(@booth) %>');
+          $("#cups").load('<%= booth_cups_path(@booth) %>');
+          $("#temperature").load('<%= booth_temp_path(@booth) %>');
+        }, 10000);
+      });
+    </script>
 </body>

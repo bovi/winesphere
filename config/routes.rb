@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   resources :booths do
     resources :thermometers 
-  end
-
-  resources :booths do
     resources :scales
+    get 'liter', to: 'booths#liter'
+    get 'temp', to: 'booths#temp'
+    get 'cups', to: 'booths#cups'
   end
 end

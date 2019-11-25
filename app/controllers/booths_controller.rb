@@ -21,10 +21,24 @@ class BoothsController < ApplicationController
   def edit
   end
 
+  def liter
+    render json: 1
+  end
+  def cups
+    render json: 2
+  end
+  def temp
+    @booth = Booth.find(params[:booth_id])
+    render html: @booth.thermometers.first.temperatures
+                     .where('updated_at > ?', 1.hours.ago)
+                     .group_by_minute(:created_at)
+                     .average(:temp).values.last.round(1)
+  end
+
   # POST /booths
   # POST /booths.json
   def create
-    @booth = Booth.new(booth_params)
+    #@booth = Booth.new(booth_params)
 
     respond_to do |format|
       if @booth.save
@@ -41,7 +55,7 @@ class BoothsController < ApplicationController
   # PATCH/PUT /booths/1.json
   def update
     respond_to do |format|
-      if @booth.update(booth_params)
+      if true #@booth.update(booth_params)
         format.html { redirect_to @booth, notice: 'Booth was successfully updated.' }
         format.json { render :show, status: :ok, location: @booth }
       else
@@ -54,7 +68,7 @@ class BoothsController < ApplicationController
   # DELETE /booths/1
   # DELETE /booths/1.json
   def destroy
-    @booth.destroy
+    #@booth.destroy
     respond_to do |format|
       format.html { redirect_to booths_url, notice: 'Booth was successfully destroyed.' }
       format.json { head :no_content }
