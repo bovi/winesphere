@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
+    <meta charset="utf-8">
     <title>Winesphere</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
-    <%= yield %>
-  </body>
+    <link rel="stylesheet" href="/assets/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/Highlight-Blue.css">
+    <link rel="stylesheet" href="/assets/Navigation-Clean.css">
+    <link rel="stylesheet" href="/assets/styles.css">
+
+</head>
+<%= yield %>
 </html>

@@ -1,3 +1,54 @@
-<h2><%= @booth.name %></h2>
+<body style="background-image: url(/assets/christmas.jpg);">
+    <div style="background-image: url(/assets/christmas.jpg);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(/assets/christmas.jpg);padding: 15px;padding-left: -5px;">
+            <div class="container"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="/assets/siemens_ingenuity_for_life-768x432.png" style="height: 4em;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
+                    data-target="#navcol-1" style="background-color: #ffffff;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link active" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1</strong></a></li>
+                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/2" style="color: rgb(255,255,255);"><strong>Booth #2</strong></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="highlight-blue" style="color: #ffffff;background-color: rgba(94,45,45,0.86);padding: 9px;">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center" style="font-size: 6em">Glühwein - <%= @booth.name %></h2>
+            </div>
+            <div class="buttons"></div>
+        </div>
+    </div>
+    <div style="background-color: rgba(94,45,45,0.86);">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 text-center" style="background-color: rgba(20,5,18,0);">
+                    <div style="background-color: rgba(210, 77, 87, 1);">
+                      <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
+                                     refresh: 10, min: 0, max: 100, points: false,
+                                     height: '400px'
+                                     %>
 
-<%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first), refresh: 10, min: 0, max: 100, ytitle: "°C", points: false %>
+                    </div>
+                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">TEMP</strong></p>
+                </div>
+                <div class="col-md-6 text-center" style="background-color: rgba(0,0,0,0);">
+                    <div style="background-color: rgba(210, 77, 87, 1);">
+                      <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
+                                     refresh: 10, min: 0, max: 100, points: false,
+                                     height: '400px'
+                                     %>
+
+                    </div>
+                    <p style="font-size: 4em"><strong style="color: rgb(255,255,255);">FILLLEVEL</strong></p>
+                </div>
+                <div class="col-md-12 text-center">
+                  <p style="font-size: 6em"><strong style="color: rgb(255,255,255);">Cups</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/jquery.min.js"></script>
+    <script src="/assets/bootstrap.min.js"></script>
+</body>
