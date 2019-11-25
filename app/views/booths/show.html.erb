@@ -1,4 +1,4 @@
-<body style="background-image: url(<%= asset_path 'christmas.jpg' %>);">
+<body style="background-image: url(<%= asset_path 'christmas.jpg' %>);" data-turbolinks="false">
     <div style="background-image: url(<%= asset_path 'christmas.jpg' %>);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
         <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(<%= asset_path 'christmas.jpg' %>);padding: 15px;padding-left: -5px;">
             <div class="container-fluid"><a class="navbar-brand" href="#" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="<%= asset_path 'siemens_ingenuity_for_life-768x432.png' %>" style="height: 100px;background-color: #ffffff;"></a><button class="navbar-toggler" data-toggle="collapse"
@@ -27,24 +27,52 @@
                     <div style="background-color: rgba(210, 77, 87, 1);">
                       <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
                                      refresh: 10, min: 0, max: 100, points: false,
-                                     height: '400px'
+                                     height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
+                                       scales: {
+                                         yAxes: [
+                                           {
+                                             ticks: { fontColor: "#fff" },
+                                             scaleLabel: { fontColor: "#fff" }
+                                           }
+                                         ],
+                                         xAxes: [
+                                           {
+                                             ticks: { fontColor: "#fff" }
+                                           }
+                                         ]
+                                       }
+                                     }
                                      %>
 
                     </div>
-                    <p style="font-size: 4em; color: rgb(255,255,255)"><strong id="temperature">XXX</strong>°C hot</p>
+                    <p style="font-size: 4em; color: rgb(255,255,255)"><strong id="temperature">0</strong>°C hot</p>
                 </div>
                 <div class="col-md-6 text-center" style="background-color: rgba(0,0,0,0);">
                     <div style="background-color: rgba(210, 77, 87, 1);">
-                      <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
-                                     refresh: 10, min: 0, max: 100, points: false,
-                                     height: '400px'
+                      <%= area_chart booth_scale_path(@booth, @booth.scales.first),
+                                     refresh: 10, min: 0, max: 40, points: false,
+                                     height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
+                                       scales: {
+                                         yAxes: [
+                                           {
+                                             ticks: { fontColor: "#fff" },
+                                             scaleLabel: { fontColor: "#fff" }
+                                           }
+                                         ],
+                                         xAxes: [
+                                           {
+                                             ticks: { fontColor: "#fff" }
+                                           }
+                                         ]
+                                       }
+                                     }
                                      %>
 
                     </div>
-                    <p style="font-size: 4em;color: rgb(255,255,255)"><strong id="liter">XXX</strong>l left</p>
+                    <p style="font-size: 4em;color: rgb(255,255,255)"><strong id="liter">0</strong>l left</p>
                 </div>
                 <div class="col-md-12 text-center">
-                  <p style="font-size: 6em; color: rgb(255,255,255);"><strong id="cups">XXX</strong> Cups served</p>
+                  <p style="font-size: 6em; color: rgb(255,255,255);"><strong id="cups">0</strong> Cups served</p>
                 </div>
             </div>
         </div>

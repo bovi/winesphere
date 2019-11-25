@@ -7,6 +7,8 @@
     <tr>
       <th>Name</th>
       <th>Booth</th>
+      <th>Offset</th>
+      <th>Calibration</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +18,8 @@
       <tr>
         <td><%= scale.name %></td>
         <td><%= scale.booth_id %></td>
+        <td><%= scale.offset %></td>
+        <td><%= scale.calibration %>
         <td><%= link_to 'Show', scale %></td>
         <td><%= link_to 'Edit', edit_scale_path(scale) %></td>
         <td><%= link_to 'Destroy', scale, method: :delete, data: { confirm: 'Are you sure?' } %></td>

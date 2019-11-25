@@ -10,5 +10,16 @@
   <%= @scale.booth_id %>
 </p>
 
+<p>
+  <strong>Offset:</strong>
+  <%= @scale.offset %>
+  <%= link_to 'Adjust Offset', scale_offset_path(@scale) %>
+</p>
+
+<p>
+  <strong>Calibration:</strong>
+  <%= @scale.calibration %>
+</p>
+
 <%= link_to 'Edit', edit_scale_path(@scale) %> |
 <%= link_to 'Back', scales_path %>

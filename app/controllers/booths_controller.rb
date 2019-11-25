@@ -22,17 +22,41 @@ class BoothsController < ApplicationController
   end
 
   def liter
-    render json: 1
+    @booth = Booth.find(params[:booth_id])
+    if @booth.scales.first.weights
+      ml = @booth.scales.first.weights
+                     .where('created_at > ?', 1.hours.ago)
+                     .group_by_minute(:created_at)
+                     .average(:weight).values.last
+      if ml
+        render html: (ml / 1000.0).round(1)
+      else
+        render html: 0
+      end
+    else
+      render html: 0
+    end
   end
   def cups
+    # count from when?
+
     render json: 2
   end
   def temp
     @booth = Booth.find(params[:booth_id])
-    render html: @booth.thermometers.first.temperatures
-                     .where('updated_at > ?', 1.hours.ago)
-                     .group_by_minute(:created_at)
-                     .average(:temp).values.last.round(1)
+    if @booth.thermometers.first.temperatures
+      temp = @booth.thermometers.first.temperatures
+                         .where('created_at > ?', 1.hours.ago)
+                         .group_by_minute(:created_at)
+                         .average(:temp).values.last
+      if temp
+        render html: temp.round(1)
+      else
+        render html: 0
+      end
+    else
+      render html: 0
+    end
   end
 
   # POST /booths

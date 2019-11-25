@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_16_175747) do
+ActiveRecord::Schema.define(version: 2019_11_25_165631) do
 
   create_table "booths", force: :cascade do |t|
     t.string "name"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2019_11_16_175747) do
     t.integer "booth_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "offset"
+    t.integer "calibration"
     t.index ["booth_id"], name: "index_scales_on_booth_id"
   end
 
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 2019_11_16_175747) do
     t.integer "scale_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "raw"
     t.index ["scale_id"], name: "index_weights_on_scale_id"
   end
 

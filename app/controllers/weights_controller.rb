@@ -21,6 +21,22 @@ class WeightsController < ApplicationController
   def edit
   end
 
+  def new_entry
+    scale_data = JSON.parse(params[:data])
+    scale = Scale.find_by(name: scale_data['scale'])
+    weight = Weight.new
+    weight.scale = thermometer
+    weight.raw = thermometer_data['weight']
+    weight.weight = (thermometer_data['weight'] - scale.offset) / scale.calibration
+    weight.battery = thermometer_data['battery']
+    weight.uptime = thermometer_data['uptime']
+    if scale.save
+      render inline: '{"status": "ok"}', status: 200
+    else
+      render inline: '{"status": "ko"}', status: 500
+    end
+  end
+
   # POST /weights
   # POST /weights.json
   def create
@@ -69,6 +85,6 @@ class WeightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def weight_params
-      params.require(:weight).permit(:weight, :scale_id)
+      params.require(:weight).permit(:weight, :scale_id, :raw, :battery, :uptime)
     end
 end

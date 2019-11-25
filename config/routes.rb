@@ -2,11 +2,14 @@ Rails.application.routes.draw do
   resources :weights
   resources :temperatures
   resources :thermometers
-  resources :scales
+  resources :scales do
+    get 'offset', to: 'scales#offset'
+    get 'rescale', to: 'scales#rescale_all_values'
+  end
   resources :booths
 
-  #post '/new_temperature', to: 'temperatures#create'
   post '/new_temperature', to: 'temperatures#new_entry'
+  post '/new_weight', to: 'weights#new_entry'
 
   resources :booths do
     resources :thermometers 

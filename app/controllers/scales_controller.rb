@@ -10,6 +10,14 @@ class ScalesController < ApplicationController
   # GET /scales/1
   # GET /scales/1.json
   def show
+    h = @scale.weights
+              .where('updated_at > ?', 1.hours.ago)
+              .group_by_minute(:created_at)
+              .average(:weight)
+    h = h.each do |k,v|
+      h[k] = v / 1000.0 if v
+    end
+    render json: h
   end
 
   # GET /scales/new
@@ -51,6 +59,28 @@ class ScalesController < ApplicationController
       end
     end
   end
+  def offset
+    @scale = Scale.find(params[:scale_id])
+    current_offset = @scale.weights.last.weight
+    if current_offset
+      @scale.offset = current_offset
+      if @scale.save
+        redirect_to @scale, notice: 'Offset was successfully set'
+      else
+        redirect_to @scale, notice: 'Could not update the offset of this Scale'
+      end
+    else
+      redirect_to @scale, notice: 'No weight to set an offset for this Scale'
+    end
+  end
+  def rescale_all_values
+    @scale = Scale.find(params[:scale_id])
+    @scale.weights.each do |w|
+      w.weight = (w.raw - @scale.offset) / @scale.calibration
+      w.save!
+    end
+    render html: 'ok'
+  end
 
   # DELETE /scales/1
   # DELETE /scales/1.json
@@ -70,6 +100,6 @@ class ScalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def scale_params
-      params.require(:scale).permit(:name, :booth_id)
+      params.require(:scale).permit(:name, :booth_id, :offset, :calibration)
     end
 end
