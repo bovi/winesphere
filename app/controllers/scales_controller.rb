@@ -61,22 +61,22 @@ class ScalesController < ApplicationController
   end
   def offset
     @scale = Scale.find(params[:scale_id])
-    current_offset = @scale.weights.last.weight
+    current_offset = @scale.weights.last.raw.abs
     if current_offset
       @scale.offset = current_offset
       if @scale.save
-        redirect_to @scale, notice: 'Offset was successfully set'
+        redirect_to scales_url, notice: 'Offset was successfully set'
       else
-        redirect_to @scale, notice: 'Could not update the offset of this Scale'
+        redirect_to scales_url, notice: 'Could not update the offset of this Scale'
       end
     else
-      redirect_to @scale, notice: 'No weight to set an offset for this Scale'
+      redirect_to scales_url, notice: 'No weight to set an offset for this Scale'
     end
   end
   def rescale_all_values
     @scale = Scale.find(params[:scale_id])
     @scale.weights.each do |w|
-      w.weight = (w.raw - @scale.offset) / @scale.calibration
+      w.weight = ((w.raw - @scale.offset) / @scale.calibration).abs
       w.save!
     end
     render html: 'ok'

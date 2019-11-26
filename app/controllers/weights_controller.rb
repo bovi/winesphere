@@ -1,4 +1,5 @@
 class WeightsController < ApplicationController
+  protect_from_forgery :except => [:new_entry]
   before_action :set_weight, only: [:show, :edit, :update, :destroy]
 
   # GET /weights
@@ -25,12 +26,12 @@ class WeightsController < ApplicationController
     scale_data = JSON.parse(params[:data])
     scale = Scale.find_by(name: scale_data['scale'])
     weight = Weight.new
-    weight.scale = thermometer
-    weight.raw = thermometer_data['weight']
-    weight.weight = (thermometer_data['weight'] - scale.offset) / scale.calibration
-    weight.battery = thermometer_data['battery']
-    weight.uptime = thermometer_data['uptime']
-    if scale.save
+    weight.scale = scale
+    weight.raw = scale_data['weight'].abs
+    weight.weight = ((scale_data['weight'].abs - scale.offset) * scale.calibration).abs
+    weight.battery = scale_data['battery']
+    weight.uptime = scale_data['uptime']
+    if weight.save
       render inline: '{"status": "ok"}', status: 200
     else
       render inline: '{"status": "ko"}', status: 500

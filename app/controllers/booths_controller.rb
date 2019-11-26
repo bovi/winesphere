@@ -21,6 +21,12 @@ class BoothsController < ApplicationController
   def edit
   end
 
+  def purge
+    Weight.delete_all
+    Temperature.delete_all
+    render html: 'ok'
+  end
+
   def liter
     @booth = Booth.find(params[:booth_id])
     if @booth.scales.first.weights
@@ -67,7 +73,15 @@ class BoothsController < ApplicationController
             # refill
           else
             # no refill
-            new_cups = ((last_data - v) / 200.0).round
+            #debugger
+            begin
+              new_cups = ((last_data - v) / 300.0).round
+            rescue FloatDomainError
+              # fixme
+              # an error I don't yet understand
+              new_cups = 0
+            end
+
 
             # per minute not more than 6 cups
             num = ((k - last_time) / 60.0).round

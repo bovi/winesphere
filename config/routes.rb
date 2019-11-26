@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   post '/new_temperature', to: 'temperatures#new_entry'
   post '/new_weight', to: 'weights#new_entry'
+  get '/purge_all_now', to: 'booths#purge'
 
   resources :booths do
     resources :thermometers 
