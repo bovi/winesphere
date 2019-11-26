@@ -25,6 +25,7 @@
             <div class="row">
                 <div class="col-md-6 text-center" style="background-color: rgba(20,5,18,0);">
                     <div style="background-color: rgba(210, 77, 87, 1);">
+                      <strong style="color: #fff; font-size: 2em">Temperature</strong>
                       <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
                                      refresh: 10, min: 0, max: 100, points: false,
                                      height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
@@ -49,6 +50,7 @@
                 </div>
                 <div class="col-md-6 text-center" style="background-color: rgba(0,0,0,0);">
                     <div style="background-color: rgba(210, 77, 87, 1);">
+                      <strong style="color: #fff; font-size: 2em">Fill Level</strong>
                       <%= area_chart booth_scale_path(@booth, @booth.scales.first),
                                      refresh: 10, min: 0, max: 40, points: false,
                                      height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
