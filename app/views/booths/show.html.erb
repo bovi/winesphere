@@ -5,8 +5,8 @@
                     data-target="#navcol-1" style="background-color: #ffffff;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1</strong></a></li>
-                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/2" style="color: rgb(255,255,255);"><strong>Booth #2</strong></a></li>
+                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1<%= @booth.id == 1 ? '*' : '' %></strong></a></li>
+                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/2" style="color: rgb(255,255,255);"><strong>Booth #2<%= @booth.id == 2 ? '*' : '' %></strong></a></li>
                     </ul>
                 </div>
             </div>
