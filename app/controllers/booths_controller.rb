@@ -21,6 +21,24 @@ class BoothsController < ApplicationController
   def edit
   end
 
+  def overview
+    @weights = []
+    @temps = []
+    [1, 2].each do |i|
+      b = Booth.find(i)
+      @weights[i] = if b.scales.first.weights.last
+        b.scales.first.weights.last.weight.round(1)
+      else
+        '~'
+      end
+      @temps[i] = if b.thermometers.first.temperatures.last
+        b.thermometers.first.temperatures.last.temp.round(1)
+      else
+        '~'
+      end
+    end
+  end
+
   def purge
     Weight.delete_all
     Temperature.delete_all
