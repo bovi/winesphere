@@ -26,12 +26,12 @@ class BoothsController < ApplicationController
     @temps = []
     [1, 2].each do |i|
       b = Booth.find(i)
-      @weights[i] = if b.scales.first.weights
+      @weights[i] = if b.scales.first.weights.last
         (b.scales.first.weights.last.weight / 1000.0).round(1)
       else
         '~'
       end
-      @temps[i] = if b.thermometers.first.temperatures
+      @temps[i] = if b.thermometers.first.temperatures.last
         b.thermometers.first.temperatures.last.temp.round(1)
       else
         '~'
