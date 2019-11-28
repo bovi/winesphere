@@ -113,7 +113,7 @@ class BoothsController < ApplicationController
       # remove last minute's value
       ml = ml - new_ml
 
-      render html: ml
+      render html: (ml / 1000).round(1)
     else
       render html: '~'
     end
