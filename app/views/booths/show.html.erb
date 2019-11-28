@@ -84,30 +84,51 @@
     <script>
       $(document).ready(function()
       {
-        $("#liter").load('<%= booth_liter_path(@booth) %>');
-        $("#cups").load('<%= booth_cups_path(@booth) %>');
-        $("#temperature").load('<%= booth_temp_path(@booth) %>');
+        try {
+          $("#liter").load('<%= booth_liter_path(@booth) %>');
+        } catch (e) { }
+        try {
+          $("#cups").load('<%= booth_cups_path(@booth) %>');
+        } catch (e) { }
+        try {
+          $("#temperature").load('<%= booth_temp_path(@booth) %>');
+        } catch (e) { }
 
         setInterval(function() {
-          $("#liter").load('<%= booth_liter_path(@booth) %>');
-          $("#cups").load('<%= booth_cups_path(@booth) %>');
-          $("#temperature").load('<%= booth_temp_path(@booth) %>');
+          try {
+            $("#liter").load('<%= booth_liter_path(@booth) %>');
+          } catch (e) { }
+          try {
+            $("#cups").load('<%= booth_cups_path(@booth) %>');
+          } catch (e) { }
+          try {
+            $("#temperature").load('<%= booth_temp_path(@booth) %>');
+          } catch (e) { }
         }, 5000);
 
-        (function worker() {
-          $.get('<%= booth_thermometer_path(@booth, @booth.thermometers.first) %>', function(data) {
-            var chart = Chartkick.charts["chart-1"];
-            chart.updateData(data);
-            setTimeout(worker, 5000);
-          });
-        })();
-        (function worker() {
-          $.get('<%= booth_scale_path(@booth, @booth.scales.first) %>', function(data) {
-            var chart = Chartkick.charts["chart-2"];
-            chart.updateData(data);
-            setTimeout(worker, 5000);
-          });
-        })();
+        setInterval(function()
+        {
+          try {
+            $.get('<%= booth_thermometer_path(@booth, @booth.thermometers.first) %>', function(data) {
+              var chart = Chartkick.charts["chart-1"];
+              chart.updateData(data);
+            });
+          } catch (e) {
+            /* catch issue during update */
+          }
+        }, 5000);
+
+        setInterval(function()
+        {
+          try {
+            $.get('<%= booth_scale_path(@booth, @booth.scales.first) %>', function(data) {
+              var chart = Chartkick.charts["chart-2"];
+              chart.updateData(data);
+            });
+          } catch(e) {
+            /* catch issue during update */
+          }
+        }, 5000);
       });
     </script>
 </body>
