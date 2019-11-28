@@ -62,9 +62,6 @@ class BoothsController < ApplicationController
     end
   end
   def cups
-    # count from when?
-    # get cups per minute
-
     ## cLevel = average filllevel of current minute
     ## pLevel = average filllevel of previous minute
     ## is cLevel > pLevel
@@ -72,7 +69,6 @@ class BoothsController < ApplicationController
     ## is pLevel > cLevel
     ### no refill since last minute (calculate cups per minute)
     ### consumption = pLevel - cLevel
-    ### cups = consumption / 200
 
     # Corner Cases:
     ## * will be refilled several-times per minute
@@ -80,10 +76,13 @@ class BoothsController < ApplicationController
 
     @booth = Booth.find(params[:booth_id])
     if @booth.scales.first.weights
-      h = @booth.scales.first.weights.where(created_at: Date.today.beginning_of_day..Date.today.end_of_day).group_by_minute(:created_at).average(:weight)
+      h = @booth.scales.first.weights
+                       .where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
+                       .group_by_minute(:created_at).average(:weight)
       last_data = nil
       last_time = nil
-      cups = 0
+      ml = 0
+      new_ml = 0
       h.each do |k,v|
         next if v.nil?
         if last_data
@@ -93,27 +92,30 @@ class BoothsController < ApplicationController
             # no refill
             #debugger
             begin
-              new_cups = ((last_data - v) / 300.0).round
+              new_ml = last_data - v
             rescue FloatDomainError
               # fixme
               # an error I don't yet understand
-              new_cups = 0
+              new_ml = 0
             end
 
 
-            # per minute not more than 6 cups
-            num = ((k - last_time) / 60.0).round
-            new_cups = (6*num) if new_cups > (6*num)
+            # per minute not more than 3000ml
+            new_ml = 3000 if new_ml > 3000
 
-            cups = cups + new_cups
+            ml = ml + new_ml
           end
         end
         last_data = v
         last_time = k
       end
-      render html: cups
+
+      # remove last minute's value
+      ml = ml - new_ml
+
+      render html: ml
     else
-      render html: 'n/a'
+      render html: '~'
     end
   end
   def temp
