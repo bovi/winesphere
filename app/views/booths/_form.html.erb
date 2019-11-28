@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= form.label :open_at %>
-    <%= select_datetime booth.open_at, :prefix => :open_at %>
+    <%= select_datetime booth.open_at + 8.hours, :prefix => :open_at %>
   </div>
 
   <div class="actions">
