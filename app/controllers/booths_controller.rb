@@ -156,7 +156,7 @@ class BoothsController < ApplicationController
     respond_to do |format|
       dt = Time.new(params["open_at"]["year"].to_i, params["open_at"]["month"].to_i,
                     params["open_at"]["day"].to_i, params["open_at"]["hour"].to_i,
-                    params["open_at"]["minute"].to_i) - 8.hours
+                    params["open_at"]["minute"].to_i)
       @booth.open_at = dt
       if @booth.save
         format.html { redirect_to booths_url, notice: 'Booth was successfully updated.' }
