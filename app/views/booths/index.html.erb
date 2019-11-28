@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Open At</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,11 @@
     <% @booths.each do |booth| %>
       <tr>
         <td><%= booth.name %></td>
+        <% if booth.open_at %>
+          <td><%= booth.open_at %></td>
+        <% else %>
+          <td></td>
+        <% end %>
         <td><%= link_to 'Show', booth %></td>
         <td><%= link_to 'Edit', edit_booth_path(booth) %></td>
         <td><%= link_to 'Destroy', booth, method: :delete, data: { confirm: 'Are you sure?' } %></td>

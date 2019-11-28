@@ -77,7 +77,7 @@ class BoothsController < ApplicationController
     @booth = Booth.find(params[:booth_id])
     if @booth.scales.first.weights
       h = @booth.scales.first.weights
-                       .where(created_at: Date.today.beginning_of_day..Date.today.end_of_day)
+                       .where(created_at: @booth.open_at..DateTime.now)
                        .group_by_minute(:created_at).average(:weight)
       last_data = nil
       last_time = nil
@@ -90,7 +90,6 @@ class BoothsController < ApplicationController
             # refill
           else
             # no refill
-            #debugger
             begin
               new_ml = last_data - v
             rescue FloatDomainError
@@ -101,7 +100,7 @@ class BoothsController < ApplicationController
 
 
             # per minute not more than 3000ml
-            new_ml = 3000 if new_ml > 3000
+            new_ml = 1000 if new_ml > 4000
 
             ml = ml + new_ml
           end
@@ -141,7 +140,7 @@ class BoothsController < ApplicationController
     #@booth = Booth.new(booth_params)
 
     respond_to do |format|
-      if @booth.save
+      if true #@booth.save
         format.html { redirect_to @booth, notice: 'Booth was successfully created.' }
         format.json { render :show, status: :created, location: @booth }
       else
@@ -155,8 +154,12 @@ class BoothsController < ApplicationController
   # PATCH/PUT /booths/1.json
   def update
     respond_to do |format|
-      if true #@booth.update(booth_params)
-        format.html { redirect_to @booth, notice: 'Booth was successfully updated.' }
+      dt = Time.new(params["open_at"]["year"].to_i, params["open_at"]["month"].to_i,
+                    params["open_at"]["day"].to_i, params["open_at"]["hour"].to_i,
+                    params["open_at"]["minute"].to_i) - 8.hours
+      @booth.open_at = dt
+      if @booth.save
+        format.html { redirect_to booths_url, notice: 'Booth was successfully updated.' }
         format.json { render :show, status: :ok, location: @booth }
       else
         format.html { render :edit }
@@ -183,6 +186,6 @@ class BoothsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booth_params
-      params.require(:booth).permit(:name)
+      params.require(:booth).permit(:name, :open_at)
     end
 end
