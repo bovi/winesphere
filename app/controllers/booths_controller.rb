@@ -78,12 +78,16 @@ class BoothsController < ApplicationController
     if @booth.scales.first.weights
       h = @booth.scales.first.weights
                        .where(created_at: @booth.open_at..DateTime.now)
-                       .group_by_minute(:created_at).average(:weight)
+                       .group_by_minute(:created_at).average(:weight).to_a
       last_data = nil
       last_time = nil
       ml = 0
       new_ml = 0
-      h.each do |k,v|
+
+      # iterate above all except the last one
+      h[0..-2].each do |a|
+        k = a[0]
+        v = a[1]
         next if v.nil?
         if last_data
           if v > last_data
@@ -109,10 +113,7 @@ class BoothsController < ApplicationController
         last_time = k
       end
 
-      # remove last minute's value
-      ml = ml - new_ml
-
-      render html: (ml / 1000).round(1)
+      render html: (ml / 1000.0).round(1)
     else
       render html: '~'
     end
