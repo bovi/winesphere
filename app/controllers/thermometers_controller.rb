@@ -15,6 +15,13 @@ class ThermometersController < ApplicationController
                      .group_by_minute(:created_at)
                      .average(:temp)
   end
+  def show_admin
+    @thermometer = Thermometer.find(params['thermometer_id'])
+    render json: @thermometer.temperatures
+                     .where('updated_at > ?', 6.hours.ago)
+                     .group_by_minute(:created_at)
+                     .count
+  end
 
   # GET /thermometers/new
   def new

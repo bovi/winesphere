@@ -20,6 +20,15 @@ class ScalesController < ApplicationController
     render json: h
   end
 
+  def show_admin
+    @scale = Scale.find(params['scale_id'])
+    h = @scale.weights
+              .where('updated_at > ?', 6.hours.ago)
+              .group_by_minute(:created_at)
+              .count
+    render json: h
+  end
+
   # GET /scales/new
   def new
     @scale = Scale.new

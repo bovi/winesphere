@@ -13,10 +13,15 @@ Rails.application.routes.draw do
   post '/new_weight', to: 'weights#new_entry'
   get '/purge_all_now', to: 'booths#purge'
   get '/kitchen', to: 'booths#kitchen'
+  get '/admin', to: 'booths#show_admin'
 
   resources :booths do
-    resources :thermometers 
-    resources :scales
+    resources :thermometers do
+      get 'admin', to: 'thermometers#show_admin'
+    end
+    resources :scales do 
+      get 'admin', to: 'scales#show_admin'
+    end
     get 'liter', to: 'booths#liter'
     get 'temp', to: 'booths#temp'
     get 'cups', to: 'booths#cups'
