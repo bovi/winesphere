@@ -98,7 +98,13 @@ class BoothsController < ApplicationController
             consumption_per_min = consumption / 10
             if consumption_per_min > 0
               min_until_empty = now[1] / consumption_per_min
-              render html: "#{min_until_empty.round}min"
+              output = ''
+              if min_until_empty > 60
+                output = '>1 hour'
+              else
+                output = "#{min_until_empty.round}min"
+              end
+              render html: output
             else
               render html: '~'
             end
