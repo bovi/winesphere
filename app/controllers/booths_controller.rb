@@ -83,28 +83,45 @@ class BoothsController < ApplicationController
     @booth = Booth.find(params[:booth_id])
     if @booth.scales.first.weights
       h = @booth.scales.first.weights
-                       .where(created_at: (DateTime.now-11.minutes)..DateTime.now)
+                       .where(created_at: (DateTime.now-10.minutes)..DateTime.now)
                        .group_by_minute(:created_at).average(:weight).to_a
-      if h.count >= 10
-        ten_min_ago = h[0]
-        now = h[-2]
-
-        if ten_min_ago and now
-          if now[1] > ten_min_ago[1]
-            # was refilled
+      if h.count >= 3
+        now = h[-1]
+        max = h[-2]
+        if max[1]
+          # find the last local maximum
+          h[0..-3].reverse.each do |i|
+            next if i.nil?
+            if i[1] >= max[1]
+              # still upwards
+              max = i
+            else
+              # refill detected
+              break
+            end
+          end
+        end
+        if now[1] and max[1]
+          if now[1] > max[1]
+            # refill just now
             render html: '~'
           else
-            consumption = ten_min_ago[1] - now[1]
-            consumption_per_min = consumption / 10
-            if consumption_per_min > 0
-              min_until_empty = now[1] / consumption_per_min
-              output = ''
-              if min_until_empty > 60
-                output = '>1 hour'
+            consumption = max[1] - now[1]
+            consumption_time = (now[0] - max[0]) / 60.0
+            if consumption_time > 0
+              consumption_per_min = consumption / consumption_time
+              if consumption_per_min > 0
+                min_until_empty = now[1] / consumption_per_min
+                output = ''
+                if min_until_empty > 30
+                  output = '>30min'
+                else
+                  output = "#{min_until_empty.round}min"
+                end
+                render html: output
               else
-                output = "#{min_until_empty.round}min"
+                render html: '~'
               end
-              render html: output
             else
               render html: '~'
             end
