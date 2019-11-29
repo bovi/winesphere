@@ -17,7 +17,7 @@
     <div class="highlight-blue" style="color: #ffffff;background-color: rgba(94,45,45,0.86);padding: 9px;">
         <div class="container">
             <div class="intro">
-              <h2 class="text-center" style="font-size: 6vw"><strong style="color: rgb(0, 153, 153)">SIEMENS</strong>&nbsp;Glühwein</h2>
+              <h2 class="text-center" style="font-size: 5vw"><strong style="color: rgb(0, 153, 153)">SIEMENS</strong>&nbsp;Glühwein</h2>
             </div>
             <div class="buttons"></div>
         </div>
@@ -30,7 +30,7 @@
                       <strong style="color: #fff; font-size: 2em">Temperature</strong>
                       <%= area_chart booth_thermometer_path(@booth, @booth.thermometers.first),
                                      min: 0, max: 100, points: false,
-                                     height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
+                                     height: '350px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
                                        scales: {
                                          yAxes: [
                                            {
@@ -55,7 +55,7 @@
                       <strong style="color: #fff; font-size: 2em">Fill Level</strong>
                       <%= area_chart booth_scale_path(@booth, @booth.scales.first),
                                      min: 0, max: 40, points: false,
-                                     height: '400px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
+                                     height: '350px', colors: ['rgba(103, 65, 114, 0.6)'], library: {
                                        scales: {
                                          yAxes: [
                                            {
@@ -76,7 +76,10 @@
                     <p style="font-size: 4em;color: rgb(255,255,255)"><strong id="liter">0</strong>l left</p>
                 </div>
                 <div class="col-md-12 text-center">
-                  <p style="font-size: 6em; color: rgb(255,255,255);"><strong id="cups">0</strong>l served</p>
+                  <p style="font-size: 4em; color: rgb(255,255,255);">
+                    <strong id="cups">0</strong>l served today<br/>
+                    <%if @booth.id == 1 %>173l served yesterday<% end %>
+                  </p>
                 </div>
             </div>
         </div>
