@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/new_temperature', to: 'temperatures#new_entry'
   post '/new_weight', to: 'weights#new_entry'
   get '/purge_all_now', to: 'booths#purge'
+  get '/kitchen', to: 'booths#kitchen'
 
   resources :booths do
     resources :thermometers 
@@ -19,5 +20,6 @@ Rails.application.routes.draw do
     get 'liter', to: 'booths#liter'
     get 'temp', to: 'booths#temp'
     get 'cups', to: 'booths#cups'
+    get 'empty', to: 'booths#empty'
   end
 end

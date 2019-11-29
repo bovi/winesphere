@@ -21,6 +21,24 @@ class BoothsController < ApplicationController
   def edit
   end
 
+  def kitchen
+    @weights = []
+    @temps = []
+    [1, 2].each do |i|
+      b = Booth.find(i)
+      @weights[i] = if b.scales.first.weights.last
+        (b.scales.first.weights.last.weight / 1000.0).round(1)
+      else
+        '~'
+      end
+      @temps[i] = if b.thermometers.first.temperatures.last
+        b.thermometers.first.temperatures.last.temp.round(1)
+      else
+        '~'
+      end
+    end
+  end
+
   def overview
     @weights = []
     @temps = []
@@ -59,6 +77,40 @@ class BoothsController < ApplicationController
       end
     else
       render html: 0
+    end
+  end
+  def empty
+    @booth = Booth.find(params[:booth_id])
+    if @booth.scales.first.weights
+      h = @booth.scales.first.weights
+                       .where(created_at: (DateTime.now-10.minutes)..DateTime.now)
+                       .group_by_minute(:created_at).average(:weight).to_a
+      if h.count == 10
+        ten_min_ago = h.first
+        now = h.last
+
+        if ten_min_ago and now
+          if now[1] > ten_min_ago[1]
+            # was refilled
+            render html: '~'
+          else
+            consumption = ten_min_ago[1] - now[1]
+            consumption_per_min = consumption / 10.0
+            if consumption_per_min > 0
+              min_until_empty = now[1] / consumption_per_min
+              render html: "#{min_until_empty}min"
+            else
+              render html: '~'
+            end
+          end
+        else
+          render html: '~'
+        end
+      else
+        render html: '~'
+      end
+    else
+      render html: '~'
     end
   end
   def cups

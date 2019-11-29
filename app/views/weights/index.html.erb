@@ -8,6 +8,7 @@
       <th>Raw</th>
       <th>Weight</th>
       <th>Scale</th>
+      <th>Created at</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= weight.raw %></td>
         <td><%= weight.weight %></td>
         <td><%= weight.scale_id %></td>
+        <td><%= weight.created_at %></td>
         <td><%= link_to 'Show', weight %></td>
         <td><%= link_to 'Edit', edit_weight_path(weight) %></td>
         <td><%= link_to 'Destroy', weight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
