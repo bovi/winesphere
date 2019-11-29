@@ -1,19 +1,4 @@
 <body style="background-image: url(<%= asset_path 'christmas.jpg' %>);" data-turbolinks="false">
-    <div style="background-image: url(<%= asset_path 'christmas.jpg' %>);"); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background-image: url(<%= asset_path 'christmas.jpg' %>);padding: 15px;padding-left: -5px;">
-            <div class="container-fluid"><a class="navbar-brand" href="/" style="font-size: 22px;color: rgb(94,26,26);background-color: rgba(255,255,255,0);"><img src="<%= asset_path 'siemens_ingenuity_for_life-768x432.png' %>" style="height: 100px;background-color: #ffffff;"></a>
-            <!-- <button class="navbar-toggler" data-toggle="collapse"
-                    data-target="#navcol-1" style="background-color: #ffffff;"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/1" style="color: rgb(255,255,255);"><strong>Booth #1</strong></a></li>
-                        <li class="nav-item" role="presentation" style="background-color: rgba(94,45,45,0.86);"><a class="nav-link" href="/booths/2" style="color: rgb(255,255,255);"><strong>Booth #2</strong></a></li>
-                    </ul>
-                </div>
-                -->
-            </div>
-        </nav>
-    </div>
     <div class="highlight-blue" style="color: #ffffff;background-color: rgba(94,45,45,0.86);padding: 9px;">
         <div class="container">
             <div class="intro">
@@ -26,7 +11,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 text-center" style="background-color: rgba(20,5,18,0);">
-                    <div style="background-color: rgba(210, 77, 87, 1);">
+                    <div style="background-color: rgba(255, 255, 255, 1);">
                       <table class="table" style="font-size: 4vw">
                         <thead>
                           <tr>
@@ -54,6 +39,24 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+              <div class="col-md-12 text-center" style="background-color: rgba(20,5,18,0);">
+              &nbsp;
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center" style="background-color: rgba(20,5,18,0);">
+                    <div style="background-color: rgba(255, 255, 255, 1);">
+                      <table class="table" style="font-size: 4vw">
+                        <tbody>
+                          <tr>
+                            <td><strong>At 4 liters the wine is hard to reach.<br/>Avoid getting below!</strong></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="<%= asset_path 'jquery.min.js' %>"></script>
@@ -64,6 +67,14 @@
         setInterval(function() {
           try {
             $("#liter_1").load('<%= booth_liter_path(Booth.find(1)) %>');
+            liters = parseInt($("#liter_1")[0].innerText);
+            if (liters <= 5) {
+              $("#liter_1")[0].style.color = "red";
+            } else if (liters <= 10) {
+              $("#liter_1")[0].style.color = "orange";
+            } else {
+              $("#liter_1")[0].style.color = "black";
+            }
           } catch (e) { }
           try {
             $("#empty_1").load('<%= booth_empty_path(Booth.find(1)) %>');
@@ -76,6 +87,14 @@
         setInterval(function() {
           try {
             $("#liter_2").load('<%= booth_liter_path(Booth.find(2)) %>');
+            liters = parseInt($("#liter_2")[0].innerText);
+            if (liters <= 5) {
+              $("#liter_2")[0].style.color = "red";
+            } else if (liters <= 10) {
+              $("#liter_2")[0].style.color = "orange";
+            } else {
+              $("#liter_2")[0].style.color = "black";
+            }
           } catch (e) { }
           try {
             $("#empty_2").load('<%= booth_empty_path(Booth.find(2)) %>');
